@@ -4,7 +4,7 @@ LABEL maintainer="caloutw"
 LABEL org.opencontainers.image.title="Remosh-Code-Server"
 LABEL org.opencontainers.image.version="1.0.0"
 LABEL org.opencontainers.image.authors="calou code platform"
-LABEL org.opencontainers.image.description="[Remosh]A simple Code-Server environment for docker."
+LABEL org.opencontainers.image.description="[Remosh]A simple Code-server environment for docker."
 
 ENV username="linux"
 ENV password="password"
