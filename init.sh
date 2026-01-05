@@ -27,10 +27,12 @@ password: $password
 cert: false
 EOL
 
+  mkdir "/home/$username/workspace"
+
   chown -R $username:$username "/home/$username/"  
 else
   echo "$username already loaded."
 fi
 
 echo "Server is running..."
-exec su - "$username" -c "code-server"
+exec su - "$username" -c "code-server /home/$username/workspace"
