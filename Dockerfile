@@ -1,0 +1,48 @@
+FROM ghcr.io/calou-code-platform/ccp-base-ubuntu:main
+
+LABEL maintainer="caloutw"
+LABEL org.opencontainers.image.title="Remosh-Code-Server"
+LABEL org.opencontainers.image.version="1.0.0"
+LABEL org.opencontainers.image.authors="calou code platform"
+LABEL org.opencontainers.image.description="[Remosh]A simple Code-Server environment for docker."
+
+ENV username="linux"
+ENV password="password"
+ENV sudo_password="sudo_password"
+
+USER root
+
+RUN userdel -r ubuntu || true
+
+RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
+    DEBIAN_FRONTEND=noninteractive apt install -y \
+    curl \
+    sudo \
+    git \
+    wget \
+    software-properties-common \
+    ca-certificates \
+    gnupg \
+    gcc &&\
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo 'Defaults lecture="never"' >> /etc/sudoers
+RUN rm -rf /etc/update-motd.d/* /etc/legal /usr/share/doc/base-files/README
+
+RUN mkdir /cont
+WORKDIR /cont
+
+COPY get-builder.sh ./
+RUN chmod 777 get-builder.sh
+
+COPY init.sh ./
+RUN chmod 777 init.sh
+
+COPY .bashrc ./
+COPY .bash_profile ./
+
+COPY title ./
+
+EXPOSE 3100
+
+CMD ["/cont/init.sh"]
