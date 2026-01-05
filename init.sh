@@ -20,7 +20,7 @@ if ! id "$username" &>/dev/null; then
   curl -fsSL https://code-server.dev/install.sh | sh
   mkdir -p "/home/$username/.config/code-server"
 
-  cat > ~/.config/code-server/config.yaml <<EOL
+  cat > "/home/$username/.config/code-server/config.yaml" <<EOL
 bind-addr: 0.0.0.0:3100
 auth: password
 password: $password
